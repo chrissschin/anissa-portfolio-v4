@@ -63,7 +63,7 @@ export const ProductPageTemplate = ({
                         </article>
                       </div>
                     </div>
-                    <div className="tile is-parent">
+                    <div className="tile is-parentvvv">
                       <article className="tile is-child">
                         <PreviewCompatibleImage imageInfo={main.image3} />
                       </article>
