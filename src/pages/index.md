@@ -2,7 +2,7 @@
 templateKey: index-page
 title: Great coffee with a conscience
 image: /img/home-jumbotron.jpg
-heading: Great coffee with a conscience
+heading: Great coffee with a poopoo
 subheading: asdfasdfsdaf
 mainpitch:
   title: Why Kaldi
