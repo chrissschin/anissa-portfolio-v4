@@ -27,14 +27,24 @@ export const IndexPageTemplate = ({
   }, [controls]);
 
   const variants = {
+    nav: {
+      y: 0,
+      opacity: 1,
+      height: "100%",
+      transition: {
+        delay: 0.8,
+        ease: [0.23, -0.05, 0.83, 1],
+        default: { duration: 0.2 },
+      },
+    },
     showing: {
       y: 0,
       opacity: 1,
       height: "100%",
       transition: {
-        delay: 1.4,
+        delay: 0.4,
         ease: [0.23, -0.05, 0.83, 1],
-        default: { duration: 0.8 },
+        default: { duration: 0.2 },
       },
     },
     textShowing: {
@@ -42,6 +52,15 @@ export const IndexPageTemplate = ({
       opacity: 1,
       transition: {
         delay: 1.4,
+        ease: [0.23, -0.05, 0.83, 1],
+        default: { duration: 0.3 },
+      },
+    },
+    label: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.8,
         ease: [0.23, -0.05, 0.83, 1],
         default: { duration: 0.2 },
       },
@@ -57,10 +76,13 @@ export const IndexPageTemplate = ({
     },
     imageSecond: {
       height: "100%",
+      y: 0,
       transition: {
-        delay: 1.8,
-        ease: [0.23, -0.05, 0.83, 1],
-        default: { duration: 0.3 },
+        delay: 1.7,
+        type: "spring",
+        damping: 30,
+        mass: 0.8,
+        stiffness: 200,
       },
     },
   };
@@ -68,36 +90,40 @@ export const IndexPageTemplate = ({
   return (
     <div className="home grid">
       <div className="nav-cont" style={{ overflow: "hidden" }}>
-        <motion.div
-          className="flex-end-start"
-          initial={{ y: 300 }}
-          animate="showing"
-          variants={variants}
-        >
+        <motion.div initial={{ y: 300 }} animate="nav" variants={variants}>
           <Navbar />
         </motion.div>
       </div>
 
-      <ServicesButton />
-
-      <div className="intro-text-cont flex-end-start">
+      <div className="btn-services" style={{ overflow: "hidden", height: 50 }}>
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ y: "100%", opacity: 0 }}
+          animate="nav"
+          variants={variants}
+        >
+          <ServicesButton />
+        </motion.div>
+      </div>
+
+      <div className="intro-text-cont">
+        <motion.div
+          initial={{ opacity: 0, y: 4 }}
           animate="textShowing"
           variants={variants}
         >
           <p>
             Lorem ipsum text to go here random. The random text goes here
-            description.
+            description. Lorem ipsum text to go here random. The random text
+            goes here description.
           </p>
         </motion.div>
       </div>
 
-      <div className="img-linker-container" style={{ overflow: "hidden" }}>
+      <div className="img-linker-container">
         <motion.div
           className="txt-r"
           initial={{ opacity: 0 }}
-          animate="showing"
+          animate="textShowing"
           variants={variants}
         >
           <span className="u-line">WORK</span>
@@ -112,15 +138,30 @@ export const IndexPageTemplate = ({
         </motion.div>
       </div>
 
-      <div className="home-img-container" style={{ overflow: "hidden" }}>
+      <div className="home-link-counter">
+        <motion.div
+          initial={{ opacity: 0, y: 4 }}
+          animate="label"
+          variants={variants}
+        >
+          <span>03/ 13</span>
+        </motion.div>
+      </div>
+
+      <div className="home-img-container">
         <div className="home-img" style={{ overflow: "hidden" }}>
-          <div className="img-info">
+          <motion.div
+            className="img-info"
+            initial={{ opacity: 0, y: 4 }}
+            animate="label"
+            variants={variants}
+          >
             <span>NAME NAME</span>
-            <span>12.20.20</span>
-          </div>
+            <span>12/20/20</span>
+          </motion.div>
           <motion.div
             style={{ overflow: "hidden" }}
-            initial={{ y: 8, height: 16, opacity: 0 }}
+            initial={{ y: -2, height: "6%", opacity: 0 }}
             animate={controls}
             variants={variants}
             className="img-switch img-responsive"
@@ -146,7 +187,7 @@ export const IndexPageTemplate = ({
         }}
         transition={{
           ease: [0.87, -0.05, 0.43, 1],
-          default: { duration: 1.6 },
+          default: { duration: 1.1 },
         }}
       ></motion.div>
       <motion.div
@@ -158,7 +199,7 @@ export const IndexPageTemplate = ({
         }}
         transition={{
           ease: [0.87, -0.05, 0.43, 1],
-          default: { duration: 1.2 },
+          default: { duration: 1.1 },
         }}
       ></motion.div>
     </div>

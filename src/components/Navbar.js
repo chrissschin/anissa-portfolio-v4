@@ -33,7 +33,7 @@ const Navbar = class extends React.Component {
   render() {
     return (
       <nav>
-        <span className="logo">TEXT TEXT TEXT</span>
+        <span className="logo">ANISSA SILVAS</span>
       </nav>
     );
   }
