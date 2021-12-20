@@ -6,7 +6,7 @@ const ServicesButton = class extends React.Component {
   }
 
   render() {
-    return <button>Services</button>;
+    return <button>Servicess</button>;
   }
 };
 
