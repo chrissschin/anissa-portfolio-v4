@@ -1,140 +1,187 @@
-@import "~bulma/sass/utilities/initial-variables"
+@import "../css/typography"
 
-// Config vars
-// Kaldi logo brand color: #FD461E
-$kaldi-red: #D64000
-$kaldi-red-invert: #fff
+// config profile colors
+$background-primary: #1B1B1B
+$text-primary-color: #fff
+$text-secondary-color: #ABD908
 
-$primary: $kaldi-red
-$primary-invert: $kaldi-red-invert
-$body-color: #333
-$black: #2b2523
+// Breakpoints
+$layout-breakpoint-large: 1920px
+$layout-breakpoint-medium: 1440px
+$layout-breakpoint-small: 960px
+$layout-breakpoint-xsmall: 480px
+// Colors
+$background: #f0eff1
+$white: #fff
+$black: #24242a
 
-.navbar .navbar-menu
-  box-shadow: none !important
+$header-max-size: 1440px
+$container-max-size: 1682px
 
-.content .taglist
-  list-style: none
-  margin-bottom: 0
-  margin-left: 0
-  margin-right: 1.5rem
-  margin-top: 1.5rem
-  display: flex
-  flex-wrap: wrap
-  justify-content: left
-  align-items: center
-  li
-    padding: 0 2rem 1rem 0
-    margin-bottom: 1.5rem
-    margin-top: 0
+// borders
+// $dashed-border: background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='5' stroke-dasharray='5%2c18' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e")
 
-// Helper Classes
-.full-width-image-container
-  width: 100vw
-  height: 400px
+// text size
+$base-body-px: 14
+
+$line-height: 20px
+
+$logo-font-family: "agrandir-wide", Helvetica, sans-serif
+$heading-font-family: "agrandir-reg", Helvetica, sans-serif
+$body-font-family: "grafier-regular", Helvetica, sans-serif
+
+*, *::before, *::after
+  padding: 0
+  margin: 0
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+*
+  background-color: $background-primary
+  font-size: 14px
+  color: $text-primary-color
+  font-family: $body-font-family
+  -webkit-font-smoothing: antialiased
+
+.h0
+  font-size: 600px
+  font-family: $heading-font-family
+
+h1
+  font-size: 144px
+  font-family: $heading-font-family
+  margin: 0
+
+p
+  line-height: 22px
+
+button
+  font-family: $body-font-family
+
+span
+  text-transform: uppercase
+  font-size: 12px
+  line-height: $line-height
+// nav,
+// .btn-services
+//   max-width: $header-max-size
+//   display: flex
+//   margin: 0 auto
+
+.home
+  max-height: 100vh
+  margin: 0 auto
+  max-width: 1680px
+
+/////////////GRID LAYYOUT HOME
+.grid
+  display: grid
   position: relative
-  left: 50%
-  right: 50%
-  margin: 2em -50vw
-  background-size: cover
-  background-position: bottom
-  display: flex
-  justify-content: center
-  align-items: center
+  min-height: 100vh
+  width: 100%
+  grid-template-rows: 1fr 3.03fr 1.33fr 2.7fr 2.7fr 1.33fr 3.03fr 1fr
+  grid-template-columns: 1fr 1fr 2fr 1.33fr 1fr 1.58fr 4.83fr 3.167fr 3.167fr 4.83fr 1.58fr 1fr 1.33fr 2fr 1fr 1fr
 
-.full-width-image
-    width: 100vw
-    height: 400px
-    background-size: cover
-    background-position: bottom
+.btn-services
+  // from top / from left / take up from top / take up from left
+  grid-area: 2 / 14 /auto/ auto
+  align-items: flex-start
+  justify-content: flex-end
+  button
+    cursor: pointer
+    font-size: 12px
+    padding: 16px 32px
+    border: 1px dashed $white
+    text-transform: uppercase
+
+.intro-text-cont
+  grid-area: 2 / 3 / auto / span 3
+  div
+    text-align: justify
+
+    p
+      max-width: 280px
+
+.nav-cont
+  grid-area: 1 / 3 / auto / span 5
+
+.home-img-container
+  grid-area: 3/ 7 / -2 / -3
+  display: flex
+  justify-content: flex-end
+  overflow: hidden
+
+  .img-info
     display: flex
-    justify-content: center
-    align-items: center
+    justify-content: space-between
+    width: 100%
 
-.btn
-    display: inline-block
-    padding: 12px 16px 10px
-    font-size: 18px
-    font-size: 1rem
-    line-height: 1.25
-    background-color: #fff
-    border-radius: .25rem
-    text-decoration: none
-    font-weight: 700
-    color: #CC3700
-    text-align: center
-    -webkit-box-shadow: inset 0 0 0 2px #CC3700
-    box-shadow: inset 0 0 0 2px #f40
-    -webkit-transition: all .15s ease
-    transition: all .15s ease
-
-.margin-top-0
-  margin-top: 0 !important
-
-.navbar-item .icon
-  color: $primary
-// Override for use of svg's from https://simpleicons.org/
-.icon svg
-  width: 1.5rem
-  height: 1.5rem
-  fill: currentColor
-.navbar-brand .navbar-item.logo
-  padding: 0 1rem
-footer.footer
-  padding: 3rem 0rem 0rem
-  background-color: transparent
-
-//Menu overrides
-$menu-item-color: $white-ter
-$menu-item-hover-color: $black !important
-$menu-item-hover-background-color: $black
-$menu-item-active-color: $kaldi-red-invert
-$menu-item-active-background-color:	$kaldi-red-invert
-$menu-list-border-left: 1px solid $kaldi-red-invert
-$menu-label-color: $white-ter
-
-
-.menu-label
-  font-size: 1em !important
-  text-align: left
-.menu-list
-  list-style: none !important
-  text-align: left
-.social
-  padding: 2em
-.social a
-    padding: .5em .5em .3em .5em
-    border-radius: 1em
-    background-color: $white-ter
-    margin: .5em
-    width: 1em
-    height: 1em
-    vertical-align: middle
-    display: inline
-
-// blog roll
-.blog-list-item.is-featured
-  background-color: #d6400033
-.blog-list-item header
+.img-linker-container
+  grid-area: 4/ 3 /-3/ span 3
   display: flex
-  margin-bottom: 1em
-.blog-list-item .featured-thumbnail
-  flex-basis: 35%
-  margin: 0 1.5em 0 0
-
-
-@import "~bulma"
-
-
-// responsiveness
-+tablet-only
-  .blog-list-item .featured-thumbnail
-    flex-basis: 50%
-
-+mobile
-  .blog-list-item header
+  justify-content: flex-end
+  a
+    font-family: $heading-font-family
     display: block
-  .blog-list-item .featured-thumbnail
-    text-align: center
-    max-width: 70%
-    margin: 0 0 1em
+    line-height: $line-height
+    font-size: 12px
+    text-transform: uppercase
+    text-decoration: none
+
+.home-socials
+  grid-area: 7/15/7/-3
+  display: flex
+  align-items: flex-end
+  flex-direction: column
+  justify-content: end
+  img
+    margin-top: 8px
+
+.dash-top-right
+  grid-area: 1/15/ span 2 / auto
+  border-right: 1px dashed #EBEBEB
+
+.dash-btm-left
+  grid-area: 7/ 1/ span 2/ auto
+  border-right: 1px dashed #EBEBEB
+
+//////////// GRID LAYYOUT HOME END
+
+.logo
+  font-family: $logo-font-family
+  font-size: 36px
+  line-height: 24px
+
+.container
+  max-width: 3180px
+  margin: 0 auto
+
+.row-title
+  position: absolute
+  top: 460px
+  display: block
+.row-letter
+  font-family: $heading-font-family
+  font-size: 600px
+  position: relative
+  line-height: .8
+  background-color: transparent
+  display: inline-block
+  letter-spacing: -1.8rem
+  white-space: nowrap
+
+// HELPERS
+.flex-end-start
+  display: flex
+  align-items: flex-end
+
+.img-responsive
+  width: 100%
+  height: auto
+
+.txt-r
+  text-align: right
+
+.u-line
+  text-decoration: underline

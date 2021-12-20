@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
+import HomeImage from "../img/home.jpeg";
 
 import Layout from "../components/Layout";
-import Features from "../components/Features";
-import BlogRoll from "../components/BlogRoll";
-import FullWidthImage from "../components/FullWidthImage";
+import Navbar from "../components/Navbar";
+import ServicesButton from "../components/ServicesButton";
+import { motion, useAnimation } from "framer-motion";
 
 // eslint-disable-next-line
 export const IndexPageTemplate = ({
@@ -18,58 +19,148 @@ export const IndexPageTemplate = ({
   description,
   intro,
 }) => {
-  const heroImage = getImage(image) || image;
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start("image");
+    controls.start("imageSecond");
+  }, [controls]);
+
+  const variants = {
+    showing: {
+      y: 0,
+      opacity: 1,
+      height: "100%",
+      transition: {
+        delay: 1.4,
+        ease: [0.23, -0.05, 0.83, 1],
+        default: { duration: 0.8 },
+      },
+    },
+    textShowing: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 1.4,
+        ease: [0.23, -0.05, 0.83, 1],
+        default: { duration: 0.2 },
+      },
+    },
+    image: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 1.4,
+        ease: [0.23, -0.05, 0.83, 1],
+        default: { duration: 0.2 },
+      },
+    },
+    imageSecond: {
+      height: "100%",
+      transition: {
+        delay: 1.8,
+        ease: [0.23, -0.05, 0.83, 1],
+        default: { duration: 0.3 },
+      },
+    },
+  };
 
   return (
-    <div>
-      <FullWidthImage img={heroImage} title={title} subheading={subheading} />
-      <section className="section section--gradient">
-        <div className="container">
-          <div className="section">
-            <div className="columns">
-              <div className="column is-10 is-offset-1">
-                <div className="content">
-                  <div className="content">
-                    <div className="tile">
-                      <h1 className="title">{mainpitch.title}</h1>
-                    </div>
-                    <div className="tile">
-                      <h3 className="subtitle">{mainpitch.description}</h3>
-                    </div>
-                  </div>
-                  <div className="columns">
-                    <div className="column is-12">
-                      <h3 className="has-text-weight-semibold is-size-2">
-                        {heading}
-                      </h3>
-                      <p>{description}</p>
-                    </div>
-                  </div>
-                  <Features gridItems={intro.blurbs} />
-                  <div className="columns">
-                    <div className="column is-12 has-text-centered">
-                      <Link className="btn" to="/products">
-                        See all products
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="column is-12">
-                    <h3 className="has-text-weight-semibold is-size-2">
-                      Latest stories
-                    </h3>
-                    <BlogRoll />
-                    <div className="column is-12 has-text-centered">
-                      <Link className="btn" to="/blog">
-                        Read more
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="home grid">
+      <div className="nav-cont" style={{ overflow: "hidden" }}>
+        <motion.div
+          className="flex-end-start"
+          initial={{ y: 300 }}
+          animate="showing"
+          variants={variants}
+        >
+          <Navbar />
+        </motion.div>
+      </div>
+
+      <ServicesButton />
+
+      <div className="intro-text-cont flex-end-start">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate="textShowing"
+          variants={variants}
+        >
+          <p>
+            Lorem ipsum text to go here random. The random text goes here
+            description.
+          </p>
+        </motion.div>
+      </div>
+
+      <div className="img-linker-container" style={{ overflow: "hidden" }}>
+        <motion.div
+          className="txt-r"
+          initial={{ opacity: 0 }}
+          animate="showing"
+          variants={variants}
+        >
+          <span className="u-line">WORK</span>
+          <a href="#">Some Text About Long</a>
+          <a href="#">Chris Pratt</a>
+          <a href="#">Christian</a>
+          <a href="#">Jesus</a>
+          <a href="#">Some Text About</a>
+          <a href="#">Chris Pratt</a>
+          <a href="#">Christian</a>
+          <a href="#">Jesus</a>
+        </motion.div>
+      </div>
+
+      <div className="home-img-container" style={{ overflow: "hidden" }}>
+        <div className="home-img" style={{ overflow: "hidden" }}>
+          <div className="img-info">
+            <span>NAME NAME</span>
+            <span>12.20.20</span>
           </div>
+          <motion.div
+            style={{ overflow: "hidden" }}
+            initial={{ y: 8, height: 16, opacity: 0 }}
+            animate={controls}
+            variants={variants}
+            className="img-switch img-responsive"
+          >
+            <img className="img-responsive" alt="test" src={HomeImage} />
+          </motion.div>
         </div>
-      </section>
+      </div>
+
+      <div className="home-socials">
+        <motion.img
+          alt="test"
+          src="https://via.placeholder.com/20"
+        ></motion.img>
+        <img alt="test" src="https://via.placeholder.com/20"></img>
+      </div>
+
+      <motion.div
+        className="dash-top-right"
+        initial={{ height: 0 }}
+        animate={{
+          height: `100%`,
+        }}
+        transition={{
+          ease: [0.87, -0.05, 0.43, 1],
+          default: { duration: 1.6 },
+        }}
+      ></motion.div>
+      <motion.div
+        className="dash-btm-left"
+        initial={{ height: 0, y: 180 }}
+        animate={{
+          y: 0,
+          height: `100%`,
+        }}
+        transition={{
+          ease: [0.87, -0.05, 0.43, 1],
+          default: { duration: 1.2 },
+        }}
+      ></motion.div>
     </div>
   );
 };

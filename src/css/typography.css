@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "agrandir-reg";
+  src: url(../fonts/Agrandir-Regular.otf);
+}
+
+@font-face {
+  font-family: "agrandir-wide";
+  src: url(../fonts/Agrandir-WideLight.otf);
+}
+
+@font-face {
+  font-family: "grafier-regular";
+  src: url(../fonts/Grafier-Regular.otf);
+}
