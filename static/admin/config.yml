@@ -244,7 +244,16 @@ collections:
                   },
                 ],
             }
-
+      - file: "src/pages/services/index.md"
+        label: "Serivices Page"
+        name: "services"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "services-page",
+            }
   - name: "details"
     label: "Details"
     folder: "src/pages/details"
@@ -260,4 +269,13 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Description", name: "description", widget: "text" }
-
+      - { label: "Image 1", name: "image1", widget: image, required: false}
+      - { label: "Image 2", name: "image2", widget: image, required: false }
+      - { label: "Image 3", name: "image3", widget: image, required: false }
+      - { label: "Image 4", name: "image4", widget: image, required: false }
+      - { label: "Image 5", name: "image5", widget: image, required: false }
+      - { label: "Image 6", name: "image6", widget: image, required: false }
+      - { label: "Image 7", name: "image7", widget: image, required: false }
+      - { label: "Image 8", name: "image8", widget: image, required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list" }

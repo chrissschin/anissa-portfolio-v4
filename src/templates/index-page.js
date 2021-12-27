@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import HomeImage from "../img/home.jpeg";
 
@@ -19,6 +19,7 @@ export const IndexPageTemplate = ({
   description,
   intro,
 }) => {
+  // const [currentDetailLink, setCurentDetailLink] = useState(detailLinks[0])
   const controls = useAnimation();
 
   useEffect(() => {
@@ -113,28 +114,24 @@ export const IndexPageTemplate = ({
         >
           <p>
             Lorem ipsum text to go here random. The random text goes here
-            description. Lorem ipsum text to go here random. The random text
-            goes here description.
+            description. The green juice mixed with apples. Brown pots.
           </p>
         </motion.div>
       </div>
 
+      {/* links with images that go to detail page */}
+
+      {/* what we'll do is pass the same object for links and img */}
+      {/* set first link as showImgForthisLink to true */}
+      {/* when user hovers on next link, we set that link to true,  */}
       <div className="img-linker-container">
         <motion.div
-          className="txt-r"
           initial={{ opacity: 0 }}
           animate="textShowing"
           variants={variants}
         >
           <span className="u-line">WORK</span>
           <a href="#">Some Text About Long</a>
-          <a href="#">Chris Pratt</a>
-          <a href="#">Christian</a>
-          <a href="#">Jesus</a>
-          <a href="#">Some Text About</a>
-          <a href="#">Chris Pratt</a>
-          <a href="#">Christian</a>
-          <a href="#">Jesus</a>
         </motion.div>
       </div>
 
@@ -148,6 +145,7 @@ export const IndexPageTemplate = ({
         </motion.div>
       </div>
 
+      {/* image based on link */}
       <div className="home-img-container">
         <div className="home-img" style={{ overflow: "hidden" }}>
           <motion.div
@@ -192,7 +190,7 @@ export const IndexPageTemplate = ({
       ></motion.div>
       <motion.div
         className="dash-btm-left"
-        initial={{ height: 0, y: 180 }}
+        initial={{ height: 0, y: 80 }}
         animate={{
           y: 0,
           height: `100%`,

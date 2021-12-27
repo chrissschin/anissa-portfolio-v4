@@ -100,14 +100,18 @@ span
     text-transform: uppercase
 
 .intro-text-cont
-  grid-area: 3/3/auto/span 4
+  grid-area: 7/5/auto/span 4
+  z-index: 5
+  display: flex
+  align-items: flex-end
+  max-width: 250px
   div
     text-align: justify
 
 .nav-cont
-  grid-area: 2/3/2/ span 5
-  margin-top: 18px
+  grid-area: 2/3/2/span 5
   height: 22px
+  margin-top: 22px
 
 .home-img-container
   grid-area: 3/7/-1/-4
@@ -115,25 +119,27 @@ span
   justify-content: flex-end
   overflow: hidden
   padding-bottom: 24px
-  padding-left: 10%
-  margin-top: -16px
+  padding-left: 8%
+  margin-top: -28px
 
   .img-info
     display: flex
     justify-content: space-between
     width: 100%
+    border-bottom: 2px solid
+    margin-bottom: 8px
 
 .img-linker-container
-  margin-top: 32px
-  grid-area: 4/ 4 / -2/ span 3
-  display: flex
-  justify-content: flex-end
+  grid-area: 3/3/5/span 3
+  margin-top: -27px
+  background: transparent
+
+  background: transparent
   a
     font-family: $heading-font-family
     display: block
     line-height: $line-height
-    font-size: 12px
-    text-transform: uppercase
+    font-size: 14px
     text-decoration: none
 
 .home-socials
@@ -147,19 +153,26 @@ span
     margin-right: 8px
 
 .dash-top-right
-  grid-area: 1/14/ span 2 / auto
+  grid-area: 1/13/ span 1 / auto
   border-right: 1px dashed #EBEBEB
 
 .dash-btm-left
-  grid-area: 7/ 2/ span 2/ auto
-  border-right: 1px dashed #EBEBEB
+  grid-area: 7/4/span 1/auto
+  border-right: 2px solid #EBEBEB
+  margin-right: 16px
+  background: transparent
 
 .home-link-counter
-  grid-area: 7/ 6/ 7/ -11
-  display: flex
-  align-items: flex-end
-  justify-content: end
+  grid-area: 4/4/span 1/span 2
   z-index: 5
+    /* margin-right: 16px; */
+  padding: 6px
+  border: 2px solid white
+  background: transparent
+  opacity: 0.25
+
+  div
+    background: transparent
 
 //////////// GRID LAYYOUT HOME END
 
@@ -199,4 +212,6 @@ span
   text-align: right
 
 .u-line
-  text-decoration: underline
+  display: inline-block
+  border-bottom: 2px solid white
+  margin-bottom: 16px

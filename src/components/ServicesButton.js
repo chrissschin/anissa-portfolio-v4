@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "gatsby";
 
 const ServicesButton = class extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    return <button>Servicess</button>;
+    return (
+      <Link to="/services">
+        <button>Servicess</button>
+      </Link>
+    );
   }
 };
 
