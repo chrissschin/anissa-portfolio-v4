@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import HomeImage from "../img/home.jpeg";
+import ChemexImage from "../../static/img/chemex.jpg";
 
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
@@ -24,7 +25,6 @@ export const IndexPageTemplate = ({
 
   useEffect(() => {
     controls.start("image");
-    controls.start("imageSecond");
   }, [controls]);
 
   const variants = {
@@ -51,6 +51,15 @@ export const IndexPageTemplate = ({
     textShowing: {
       y: 0,
       opacity: 1,
+      transition: {
+        delay: 1.4,
+        ease: [0.23, -0.05, 0.83, 1],
+        default: { duration: 0.3 },
+      },
+    },
+    textBoxShow: {
+      y: 0,
+      opacity: 0.9,
       transition: {
         delay: 1.4,
         ease: [0.23, -0.05, 0.83, 1],
@@ -96,7 +105,7 @@ export const IndexPageTemplate = ({
         </motion.div>
       </div>
 
-      <div className="btn-services" style={{ overflow: "hidden", height: 50 }}>
+      <div className="btn-services" style={{ overflow: "hidden", height: 55 }}>
         <motion.div
           initial={{ y: "100%", opacity: 0 }}
           animate="nav"
@@ -109,10 +118,10 @@ export const IndexPageTemplate = ({
       <div className="intro-text-cont">
         <motion.div
           initial={{ opacity: 0, y: 4 }}
-          animate="textShowing"
+          animate="textBoxShow"
           variants={variants}
         >
-          <p>
+          <p className="mb-0">
             Lorem ipsum text to go here random. The random text goes here
             description. The green juice mixed with apples. Brown pots.
           </p>
@@ -130,8 +139,12 @@ export const IndexPageTemplate = ({
           animate="textShowing"
           variants={variants}
         >
-          <span className="u-line">WORK</span>
+          <span className="u-line">Work</span>
           <a href="#">Some Text About Long</a>
+          <a href="#">Steward Lewsih </a>
+          <a href="#">Dundler Foo </a>
+          <a href="#">James Foo </a>
+          <a href="#">Foolette Foo </a>
         </motion.div>
       </div>
 
@@ -141,7 +154,7 @@ export const IndexPageTemplate = ({
           animate="label"
           variants={variants}
         >
-          <span>03/ 13</span>
+          <span>03/ 05</span>
         </motion.div>
       </div>
 
@@ -154,17 +167,17 @@ export const IndexPageTemplate = ({
             animate="label"
             variants={variants}
           >
-            <span>NAME NAME</span>
+            <span>Mountain View</span>
             <span>12/20/20</span>
           </motion.div>
           <motion.div
             style={{ overflow: "hidden" }}
-            initial={{ y: -2, height: "6%", opacity: 0 }}
+            initial={{ y: -2, opacity: 0 }}
             animate={controls}
             variants={variants}
             className="img-switch img-responsive"
           >
-            <img className="img-responsive" alt="test" src={HomeImage} />
+            <img className="img-responsive" alt="test" src={ChemexImage} />
           </motion.div>
         </div>
       </div>
@@ -193,7 +206,7 @@ export const IndexPageTemplate = ({
         initial={{ height: 0, y: 80 }}
         animate={{
           y: 0,
-          height: `100%`,
+          height: `50%`,
         }}
         transition={{
           ease: [0.87, -0.05, 0.43, 1],

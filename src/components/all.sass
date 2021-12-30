@@ -1,4 +1,5 @@
 @import "../css/typography"
+@import "../styles/services.sass"
 
 // config profile colors
 // $background-primary: #1B1B1B
@@ -26,11 +27,14 @@ $container-max-size: 1682px
 // text size
 $base-body-px: 14px
 
-$line-height: 20px
+$line-height: 2.0vw
 
 $logo-font-family: "agrandir-wide", Helvetica, sans-serif
 $heading-font-family: "agrandir-reg", Helvetica, sans-serif
 $body-font-family: "grafier-regular", Helvetica, sans-serif
+
+$span-size: 1.2vw
+$p-size: 1.4vw
 
 *, *::before, *::after
   padding: 0
@@ -40,32 +44,49 @@ $body-font-family: "grafier-regular", Helvetica, sans-serif
   box-sizing: border-box
 
 *
-  background-color: $background-primary
   font-size: $base-body-px
   color: $text-primary-color
   font-family: $body-font-family
   -webkit-font-smoothing: antialiased
+
+body
+  background-color: $background-primary
 
 .h0
   font-size: 600px
   font-family: $heading-font-family
 
 h1
-  font-size: 144px
+  font-size: clamp(72px, 14.4vw, 360px)
+  line-height: clamp(72px, 14.4vw, 360px)
   font-family: $heading-font-family
   margin: 0
+  letter-spacing: 8px
+
+h2
+  font-size: clamp(36px, 3.6vw, 42px)
+
+a:hover
+  color: $text-secondary-color
 
 p
-  font-size: 12px
-  line-height: 20px
+  font-size: clamp(12px, $p-size, 14px)
+  line-height: clamp(16px, 2.2vw, 24px)
+  margin-bottom: 16px
+
+li
+  font-size: 14px
+  margin-bottom: 4px
+  margin-left: 16px
 
 button
-  font-family: $body-font-family
+  font-family: $heading-font-family
 
 span
-  text-transform: uppercase
-  font-size: 12px
-  line-height: $line-height
+  line-height: clamp(14px, $line-height, 20px)
+  font-size: clamp(12px, $span-size, 14px)
+  -webkit-font-smoothing: antialiased
+
 // nav,
 // .btn-services
 //   max-width: $header-max-size
@@ -75,7 +96,7 @@ span
 .home
   max-height: 100vh
   margin: 0 auto
-  max-width: 1680px
+  // max-width: 1680px
 
 /////////////GRID LAYYOUT HOME
 .grid
@@ -88,25 +109,30 @@ span
 
 .btn-services
   // from top / from left / take up from top / take up from left
-  grid-area: 2/11/auto/span 3
+  grid-area: 2/10/auto/span 4
   align-items: flex-start
   justify-content: flex-end
   display: flex
   button
     cursor: pointer
-    font-size: 12px
+    font-size: 14px
     padding: 16px 32px
     border: 1px dashed $white
     text-transform: uppercase
+    background-color: $background-primary
+    &:hover
+      background: $text-secondary-color
+      border: 1px solid $text-secondary-color
+      color: $black
 
 .intro-text-cont
   grid-area: 7/5/auto/span 4
   z-index: 5
-  display: flex
-  align-items: flex-end
-  max-width: 250px
+  max-width: 320px
   div
     text-align: justify
+    padding: 8px 16px
+    background: $background-primary
 
 .nav-cont
   grid-area: 2/3/2/span 5
@@ -126,11 +152,10 @@ span
     display: flex
     justify-content: space-between
     width: 100%
-    border-bottom: 2px solid
     margin-bottom: 8px
 
 .img-linker-container
-  grid-area: 3/3/5/span 3
+  grid-area: 3/4/5/span 3
   margin-top: -27px
   background: transparent
 
@@ -138,9 +163,10 @@ span
   a
     font-family: $heading-font-family
     display: block
-    line-height: $line-height
-    font-size: 14px
+    line-height: clamp(14px, 2vw, 24px)
+    font-size: clamp(14px, 1.2vw, 16px)
     text-decoration: none
+    -webkit-font-smoothing: antialiased
 
 .home-socials
   grid-area: 7/14/7/-3
@@ -153,7 +179,7 @@ span
     margin-right: 8px
 
 .dash-top-right
-  grid-area: 1/13/ span 1 / auto
+  grid-area: 1/14/ span 1 / auto
   border-right: 1px dashed #EBEBEB
 
 .dash-btm-left
@@ -163,16 +189,19 @@ span
   background: transparent
 
 .home-link-counter
-  grid-area: 4/4/span 1/span 2
-  z-index: 5
-    /* margin-right: 16px; */
-  padding: 6px
-  border: 2px solid white
+  grid-area: 3/3/span 1/span 1
+  max-height: 50%
+  text-align: center
   background: transparent
   opacity: 0.25
-
+  z-index: -5
+  margin-top: -25px
+  max-width: 115px
   div
     background: transparent
+  span
+    font-size: 38px
+    letter-spacing: -1px
 
 //////////// GRID LAYYOUT HOME END
 
@@ -215,3 +244,13 @@ span
   display: inline-block
   border-bottom: 2px solid white
   margin-bottom: 16px
+
+.mb-0
+  margin-bottom: 0
+
+.overlay
+  top: 0
+  left: 0
+  width: 100px
+  height: 100px
+  position: absolute
