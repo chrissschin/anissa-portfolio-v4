@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import HomeImage from "../img/home.jpeg";
 import ChemexImage from "../../static/img/chemex.jpg";
@@ -140,6 +140,7 @@ export const IndexPageTemplate = ({
           variants={variants}
         >
           <span className="u-line">Work</span>
+          <Link to="/details/test-test">Working Link</Link>
           <a href="#">Some Text About Long</a>
           <a href="#">Steward Lewsih </a>
           <a href="#">Dundler Foo </a>
