@@ -22,6 +22,7 @@ export const ProductPageTemplate = ({
   pricing,
 }) => {
   const heroImage = getImage(image) || image;
+  console.log(heroImage);
   const fullWidthImage = getImage(fullImage) || fullImage;
 
   return (
@@ -40,7 +41,7 @@ export const ProductPageTemplate = ({
             </div>
             <div className="columns">
               <div className="column is-10 is-offset-1">
-                <Features gridItems={intro.blurbs} /> 
+                <Features gridItems={intro.blurbs} />
                 <div className="columns">
                   <div className="column is-7">
                     <h3 className="has-text-weight-semibold is-size-3">

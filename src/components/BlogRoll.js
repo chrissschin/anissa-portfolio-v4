@@ -6,6 +6,8 @@ import PreviewCompatibleImage from "./PreviewCompatibleImage";
 class BlogRollTemplate extends React.Component {
   render() {
     const { data } = this.props;
+    console.log(data);
+
     const { edges: posts } = data.allMarkdownRemark;
 
     return (

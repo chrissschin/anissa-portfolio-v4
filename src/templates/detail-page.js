@@ -1,24 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { graphql } from "gatsby";
+import { graphql } from "gatsby"; // to query for image data
 import Layout from "../components/Layout";
 import Content, { HTMLContent } from "../components/Content";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 // eslint-disable-next-line
 export const DetailPageTemplate = ({
   title,
   content,
+  image1,
   description,
   contentComponent,
+  galleryImages,
 }) => {
   const PageContent = contentComponent || Content;
-
+  console.log(image1);
+  console.log(galleryImages);
   return (
     <div>
-      <h1>hello im a detail page template wrapper</h1>
-      <h2>{title}</h2>
-      <h3>{description}</h3>
-      <PageContent content={content}></PageContent>
+      <h1>TITLE</h1>
+      <p>{description}</p>
+      <div>
+        <GatsbyImage image={getImage(image1)} alt="text" />
+        <h2>list of images go here probably</h2>
+        {galleryImages.map((i) => {
+          return <GatsbyImage image={getImage(i)} alt="text" />;
+        })}
+
+        {/* 
+        {galleryImages.map((img) => {
+          const image = getImage(img);
+
+          <GatsbyImage image={image} alt="text" />;
+        })} */}
+        <p></p>
+      </div>
     </div>
   );
 };
@@ -32,15 +49,15 @@ DetailPageTemplate.propTypes = {
 
 const DetailPage = ({ data }) => {
   const { markdownRemark: post } = data;
-
+  console.log(post);
   return (
     <Layout>
       <DetailPageTemplate
-        contentComponent={HTMLContent}
         title={post.frontmatter.title}
         content={post.html}
-        tags={post.frontmatter.tags}
+        image1={post.frontmatter.image1}
         description={post.frontmatter.description}
+        galleryImages={post.frontmatter.galleryImages}
       />
     </Layout>
   );
@@ -62,6 +79,7 @@ DetailPage.propTypes = {
         image6: PropTypes.any,
         image7: PropTypes.any,
         image8: PropTypes.any,
+        galleryImages: PropTypes.any,
       }),
     }),
   }),
@@ -69,56 +87,31 @@ DetailPage.propTypes = {
 
 export default DetailPage;
 
-// export const detailPageQuery = graphql`
-//   query DetailPageById($id: String!) {
-//     markdownRemark(id: { eq: $id }) {
-//       id
-//       html
-//       frontmatter {
-//         date(formatString: "MMMM DD, YYYY")
-//         title
-//         description
-//         image1 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//         image2 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//         image3 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//         image4 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//         image5 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//         image6 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//         image7 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//         image8 {
-//           childImageSharp {
-//             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
+export const detailPageQuery = graphql`
+  query DetailPageById($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      id
+      html
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        title
+        description
+        image1 {
+          childImageSharp {
+            gatsbyImageData(quality: 100, layout: FULL_WIDTH)
+          }
+        }
+        image2 {
+          childImageSharp {
+            gatsbyImageData(quality: 100, layout: FULL_WIDTH)
+          }
+        }
+        galleryImages {
+          childImageSharp {
+            gatsbyImageData(quality: 100, layout: FULL_WIDTH)
+          }
+        }
+      }
+    }
+  }
+`;

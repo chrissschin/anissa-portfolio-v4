@@ -279,3 +279,6 @@ collections:
       - { label: "Image 8", name: "image8", widget: image, required: false }
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Gallery", name: "galleryImages", widget: "list", 
+            field: { label: "Image", name: "src", widget: "image", required: false }
+        }

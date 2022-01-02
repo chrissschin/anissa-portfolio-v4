@@ -46,22 +46,22 @@ export const ServicesPageTemplate = ({ contentComponent, content }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isFixed, setIsFixed] = useState(true);
   const homeLink = useRef(null);
-  const scrollHeight = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight,
-    document.body.clientHeight,
-    document.documentElement.clientHeight
-  );
+  // const scrollHeight = Math.max(
+  //   document.body.scrollHeight,
+  //   document.documentElement.scrollHeight,
+  //   document.body.offsetHeight,
+  //   document.documentElement.offsetHeight,
+  //   document.body.clientHeight,
+  //   document.documentElement.clientHeight
+  // );
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
-    if (currentScrollY > scrollHeight / 2) {
-      setIsFixed(false);
-    } else {
-      setIsFixed(true);
-    }
+    // if (currentScrollY > scrollHeight / 2) {
+    //   setIsFixed(false);
+    // } else {
+    //   setIsFixed(true);
+    // }
   };
 
   useEffect(() => {
@@ -117,12 +117,7 @@ export const ServicesPageTemplate = ({ contentComponent, content }) => {
         <h1>Services</h1>
       </motion.div>
       <div className="home-link">
-        <Link
-          ref={homeLink}
-          className={isFixed ? "fixed" : "absolute"}
-          to="/"
-          style={{ top: isFixed ? "" : `${scrollHeight / 2}px` }}
-        >
+        <Link ref={homeLink} className={isFixed ? "fixed" : "absolute"} to="/">
           HOME
         </Link>
         <div className="socials">
