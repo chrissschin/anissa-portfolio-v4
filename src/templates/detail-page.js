@@ -27,13 +27,6 @@ export const DetailPageTemplate = ({
         {galleryImages.map((i) => {
           return <GatsbyImage image={getImage(i)} alt="text" />;
         })}
-
-        {/* 
-        {galleryImages.map((img) => {
-          const image = getImage(img);
-
-          <GatsbyImage image={image} alt="text" />;
-        })} */}
         <p></p>
       </div>
     </div>
