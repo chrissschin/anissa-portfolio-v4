@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby"; // to query for image data
 import Layout from "../components/Layout";
 import Content from "../components/Content";
-import Detail from "../components/Detail";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import ChemexImage from "../../static/img/chemex.jpg";
 
@@ -11,8 +10,47 @@ import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ScrollControls, Scroll, Image, useIntersect } from "@react-three/drei";
 
+const Detail = class extends React.Component {
+  render() {
+    const { post } = this.props;
+    console.log("the post", post);
+
+    return (
+      <Layout>
+        <DetailPageTemplate
+          title={post.frontmatter.title}
+          content={post.html}
+          image1={post.frontmatter.image1}
+          description={post.frontmatter.description}
+          galleryImages={post.frontmatter.galleryImages}
+        />
+        <Canvas
+          style={{ height: "100vh" }}
+          onCreated={(state) => state.gl.setClearColor("#0c0c0c")}
+          orthographic
+          camera={{ zoom: 80 }}
+          gl={{
+            alpha: false,
+            antialias: false,
+            stencil: false,
+            depth: false,
+          }}
+          dpr={[1, 1.5]}
+        >
+          <ScrollControls damping={6} pages={5}>
+            <Items />
+            <Scroll html style={{ width: "100%" }}></Scroll>
+          </ScrollControls>
+        </Canvas>
+      </Layout>
+    );
+  }
+};
+
+export default Detail;
+
 // eslint-disable-next-line
-export const DetailPageTemplate = ({
+const DetailPageTemplate = ({
   title,
   content,
   image1,
@@ -36,13 +74,6 @@ export const DetailPageTemplate = ({
               </div> */}
     </div>
   );
-};
-
-DetailPageTemplate.propTypes = {
-  title: PropTypes.node.isRequired,
-  content: PropTypes.string,
-  description: PropTypes.string,
-  contentComponent: PropTypes.func,
 };
 
 const Item = ({ url, scale, ...props }) => {
@@ -122,93 +153,3 @@ const Items = () => {
     </Scroll>
   );
 };
-
-const DetailPage = ({ data }) => {
-  const { markdownRemark: post } = data;
-  console.log(post);
-  return (
-    <Suspense fallback={<div>Loading</div>}>
-      <Detail post={post} />
-      {/* <Layout>
-        <DetailPageTemplate
-          title={post.frontmatter.title}
-          content={post.html}
-          image1={post.frontmatter.image1}
-          description={post.frontmatter.description}
-          galleryImages={post.frontmatter.galleryImages}
-        />
-        <Canvas
-          style={{ height: "100vh" }}
-          onCreated={(state) => state.gl.setClearColor("#0c0c0c")}
-          orthographic
-          camera={{ zoom: 80 }}
-          gl={{
-            alpha: false,
-            antialias: false,
-            stencil: false,
-            depth: false,
-          }}
-          dpr={[1, 1.5]}
-        >
-          <ScrollControls damping={6} pages={5}>
-            <Items />
-            <Scroll html style={{ width: "100%" }}></Scroll>
-          </ScrollControls>
-        </Canvas>
-      </Layout> */}
-    </Suspense>
-  );
-};
-
-DetailPage.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      id: PropTypes.any,
-      html: PropTypes.any,
-      frontmatter: PropTypes.shape({
-        date: PropTypes.string,
-        title: PropTypes.string,
-        image1: PropTypes.any,
-        image2: PropTypes.any,
-        image3: PropTypes.any,
-        image4: PropTypes.any,
-        image5: PropTypes.any,
-        image6: PropTypes.any,
-        image7: PropTypes.any,
-        image8: PropTypes.any,
-        galleryImages: PropTypes.any,
-      }),
-    }),
-  }),
-};
-
-export default DetailPage;
-
-export const detailPageQuery = graphql`
-  query DetailPageById($id: String!) {
-    markdownRemark(id: { eq: $id }) {
-      id
-      html
-      frontmatter {
-        date(formatString: "MMMM DD, YYYY")
-        title
-        description
-        image1 {
-          childImageSharp {
-            gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-          }
-        }
-        image2 {
-          childImageSharp {
-            gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-          }
-        }
-        galleryImages {
-          childImageSharp {
-            gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-          }
-        }
-      }
-    }
-  }
-`;
