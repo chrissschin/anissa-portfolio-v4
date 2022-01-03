@@ -1,14 +1,12 @@
 import React, { useRef, Suspense } from "react";
 import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby"; // to query for image data
-import Layout from "../components/Layout";
 import Content from "../components/Content";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import ChemexImage from "../../static/img/chemex.jpg";
 
 import * as THREE from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ScrollControls, Scroll, Image, useIntersect } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import { Scroll, Image, useIntersect } from "@react-three/drei";
 
 const Detail = React.lazy(() => import("../components/Detail"));
 
