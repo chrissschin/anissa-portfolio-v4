@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby"; // to query for image data
 import Layout from "../components/Layout";
 import Content from "../components/Content";
-import Detail from "../components/Detail";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import ChemexImage from "../../static/img/chemex.jpg";
 
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ScrollControls, Scroll, Image, useIntersect } from "@react-three/drei";
+
+const Detail = React.lazy(() => import("../components/Detail"));
 
 // eslint-disable-next-line
 export const DetailPageTemplate = ({
@@ -127,7 +128,7 @@ const DetailPage = ({ data }) => {
   const { markdownRemark: post } = data;
   console.log(post);
   return (
-    <Suspense fallback={<div>Loading</div>}>
+    <Suspense fallback={null}>
       <Detail post={post} />
       {/* <Layout>
         <DetailPageTemplate

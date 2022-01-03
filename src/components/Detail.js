@@ -1,4 +1,4 @@
-import React, { useRef, Suspense } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby"; // to query for image data
 import Layout from "../components/Layout";
