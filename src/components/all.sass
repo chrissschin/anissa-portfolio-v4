@@ -1,41 +1,8 @@
 @import "../css/typography"
+@import "../styles/variables.sass"
+
 @import "../styles/services.sass"
 @import "../styles/details.sass"
-
-// config profile colors
-// $background-primary: #1B1B1B
-$background-primary: #0c0c0c
-
-$text-primary-color: #fff
-$text-secondary-color: #ABD908
-
-// Breakpoints
-$layout-breakpoint-large: 1920px
-$layout-breakpoint-medium: 1440px
-$layout-breakpoint-small: 960px
-$layout-breakpoint-xsmall: 480px
-// Colors
-$background: #f0eff1
-$white: #fff
-$black: #24242a
-
-$header-max-size: 1440px
-$container-max-size: 1682px
-
-// borders
-// $dashed-border: background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='5' stroke-dasharray='5%2c18' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e")
-
-// text size
-$base-body-px: 14px
-
-$line-height: 2.0vw
-
-$logo-font-family: "agrandir-wide", Helvetica, sans-serif
-$heading-font-family: "agrandir-reg", Helvetica, sans-serif
-$body-font-family: "grafier-regular", Helvetica, sans-serif
-
-$span-size: 1.2vw
-$p-size: 1.4vw
 
 *, *::before, *::after
   padding: 0
@@ -52,6 +19,7 @@ $p-size: 1.4vw
 
 body
   background-color: $background-primary
+  overscroll-behavior: none
 
 .h0
   font-size: 600px

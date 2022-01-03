@@ -1,13 +1,53 @@
+
+$heading-font-family: "agrandir-reg", Helvetica, sans-serif
+
 .detail-page
-  padding: 16px 24px
+  position: relative
+  padding: 40px 24px 8px
   max-width: 1584px
   margin: 0 auto
-  position: absolute
   z-index: 50
-  // .detail-info
-  //   .title
-  //   .detail-row
-  //     .description
-  //     .detail-nav
+  height: 35vh
+  max-height: 35vh
+  h2
+    font-family: $heading-font-family
+    margin-bottom: 24px
+  p
+    max-width: 500px
+    text-align: justify
+  .detail-row
+    display: flex
+    justify-content: space-between
+    .detail-links
+      align-self: end
+      button
+        margin-right: 4.0vw
 
-  // .image-gallery
+  button
+    cursor: pointer
+    font-size: 14px
+    padding: 16px 32px
+    border: 1px dashed $white
+    text-transform: uppercase
+    background-color: $background-primary
+    &:hover
+      background: $text-secondary-color
+      border: 1px solid $text-secondary-color
+      color: $black
+
+.dash-rght, .dash-lft
+  position: absolute
+  height: 6.0vw
+  opacity: 0.25
+  top: 0
+  right: 0
+
+.dash-rght
+  border-right: 1px dashed #fff
+.dash-lft
+  border-left: 1px dashed #fff
+
+.date
+  position: absolute
+  bottom: 0
+  padding-bottom: 16px

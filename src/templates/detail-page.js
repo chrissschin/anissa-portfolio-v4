@@ -25,14 +25,6 @@ export const DetailPageTemplate = ({
       <h2>Kate Beckinsdale</h2>
       <Link to="/">HOME</Link>
       {/* <p>{description}</p> */}
-      {/* <div>
-                <GatsbyImage image={getImage(image1)} alt="text" />
-                <h2>list of images go here probably</h2>
-                {galleryImages.map((i) => {
-                  return <GatsbyImage image={getImage(i)} alt="text" />;
-                })}
-                <p></p>
-              </div> */}
     </div>
   );
 };

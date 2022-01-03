@@ -1,14 +1,19 @@
-import React, { useRef } from "react";
+import * as THREE from "three";
+import React from "react";
+
+import { useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Image, ScrollControls, Scroll, useScroll } from "@react-three/drei";
+import { useSnapshot } from "valtio";
+import { state, damp } from "./Util";
+
 import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby"; // to query for image data
 import Layout from "../components/Layout";
 import Content from "../components/Content";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import ChemexImage from "../../static/img/chemex.jpg";
-
-import * as THREE from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ScrollControls, Scroll, Image, useIntersect } from "@react-three/drei";
+import ServicesButton from "../components/ServicesButton";
 
 const Detail = class extends React.Component {
   render() {
@@ -25,22 +30,12 @@ const Detail = class extends React.Component {
           galleryImages={post.frontmatter.galleryImages}
         />
         <Canvas
-          style={{ height: "100vh" }}
-          onCreated={(state) => state.gl.setClearColor("#0c0c0c")}
-          orthographic
-          camera={{ zoom: 80 }}
-          gl={{
-            alpha: false,
-            antialias: false,
-            stencil: false,
-            depth: false,
-          }}
+          style={{ height: "65vh" }}
+          gl={{ antialias: false }}
           dpr={[1, 1.5]}
+          onPointerMissed={() => (state.clicked = null)}
         >
-          <ScrollControls damping={6} pages={5}>
-            <Items />
-            <Scroll html style={{ width: "100%" }}></Scroll>
-          </ScrollControls>
+          <Items />
         </Canvas>
       </Layout>
     );
@@ -62,94 +57,111 @@ const DetailPageTemplate = ({
   return (
     <div className="detail-page">
       <h2>Kate Beckinsdale</h2>
-      <Link to="/">HOME</Link>
-      {/* <p>{description}</p> */}
-      {/* <div>
-                <GatsbyImage image={getImage(image1)} alt="text" />
-                <h2>list of images go here probably</h2>
-                {galleryImages.map((i) => {
-                  return <GatsbyImage image={getImage(i)} alt="text" />;
-                })}
-                <p></p>
-              </div> */}
+      <div className="dash-rght"></div>
+
+      <div className="detail-row">
+        <div className="detail-info">
+          <p>
+            Lorem ipsum text to go here random. The random text goes here
+            description. The green juice mixed with apples. Brown pots.
+          </p>
+          <p>
+            Does not support export = and import =, because those cannot be
+            compiled to ES.next. Workaround: Convert to using export default and
+            export const, and import x, y from “z”.
+          </p>
+        </div>
+        <div className="detail-links">
+          <ServicesButton />
+          <Link to="/">HOME</Link>
+        </div>
+      </div>
+      <span className="date">12/ 31/ 2022</span>
     </div>
   );
 };
 
-const Item = ({ url, scale, ...props }) => {
-  const visible = useRef(false);
-  const ref = useIntersect((isVisible) => (visible.current = isVisible));
-  const { height } = useThree((state) => state.viewport);
+const Item = ({ index, position, scale, c = new THREE.Color(), ...props }) => {
+  const ref = useRef();
+  const scroll = useScroll();
+  const { clicked, urls } = useSnapshot(state);
+  const [hovered, hover] = useState(false);
+  const click = () => (state.clicked = index === clicked ? 0 : index);
+
+  const over = () => hover(true);
+  const out = () => hover(false);
   useFrame((state, delta) => {
-    ref.current.position.y = THREE.MathUtils.damp(
-      ref.current.position.y,
-      visible.current ? 0 : -height / 2 + 1,
-      4,
+    const y = scroll.curve(
+      index / urls.length - 1.5 / urls.length,
+      4 / urls.length
+    );
+    ref.current.material.scale[1] = ref.current.scale.y = damp(
+      ref.current.scale.y,
+      clicked === index ? 5 : 4 + y,
+      8,
       delta
     );
-    ref.current.material.zoom = THREE.MathUtils.damp(
-      ref.current.material.zoom,
-      visible.current ? 1 : 1.5,
-      4,
+    ref.current.material.scale[0] = ref.current.scale.x = damp(
+      ref.current.scale.x,
+      clicked === index ? 4.7 : scale[0],
+      6,
       delta
+    );
+    if (clicked !== null && index < clicked)
+      ref.current.position.x = damp(
+        ref.current.position.x,
+        position[0] - 2,
+        6,
+        delta
+      );
+    if (clicked !== null && index > clicked)
+      ref.current.position.x = damp(
+        ref.current.position.x,
+        position[0] + 2,
+        6,
+        delta
+      );
+    if (clicked === null || clicked === index)
+      ref.current.position.x = damp(
+        ref.current.position.x,
+        position[0],
+        6,
+        delta
+      );
+
+    ref.current.material.color.lerp(
+      c.set(hovered || clicked === index ? "white" : "#aaa"),
+      hovered ? 0.3 : 0.1
     );
   });
   return (
-    <group {...props}>
-      <Image ref={ref} scale={scale} url={url} />
-    </group>
+    <Image
+      ref={ref}
+      {...props}
+      position={position}
+      scale={scale}
+      onClick={click}
+      onPointerOver={over}
+      onPointerOut={out}
+    />
   );
 };
 
-const Items = () => {
-  const { width: w, height: h } = useThree((state) => state.viewport);
+const Items = ({ w = 0.8, gap = 0.25 }) => {
+  const { urls } = useSnapshot(state);
+  const { width } = useThree((state) => state.viewport);
+  const xW = w + gap;
   return (
-    <Scroll>
-      <Item
-        url={ChemexImage}
-        scale={[w / 3, w / 3, 1]}
-        position={[-w / 6, 0, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[2, w / 3, 1]}
-        position={[w / 30, -h, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[w / 3, w / 5, 1]}
-        position={[-w / 4, -h * 1, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[w / 5, w / 5, 1]}
-        position={[w / 4, -h * 1.2, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[w / 5, w / 5, 1]}
-        position={[w / 10, -h * 1.75, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[w / 3, w / 3, 1]}
-        position={[-w / 4, -h * 2, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[w / 3, w / 5, 1]}
-        position={[-w / 4, -h * 2.6, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[w / 2, w / 2, 1]}
-        position={[w / 4, -h * 3.1, 0]}
-      />
-      <Item
-        url={ChemexImage}
-        scale={[w / 2.5, w / 2, 1]}
-        position={[-w / 6, -h * 4.1, 0]}
-      />
-    </Scroll>
+    <ScrollControls
+      horizontal
+      damping={8}
+      pages={(width - xW * 2 + urls.length * xW) / width}
+    >
+      <Scroll>
+        {
+          urls.map((url, i) => <Item key={i} index={i} position={[(i * xW) - (xW * 4), 0, 1.2]} scale={[w, 4, 1]} url={url} />) /* prettier-ignore */
+        }
+      </Scroll>
+    </ScrollControls>
   );
 };
