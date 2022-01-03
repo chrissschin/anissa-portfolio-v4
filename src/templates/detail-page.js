@@ -127,10 +127,14 @@ const Items = () => {
 const DetailPage = ({ data }) => {
   const { markdownRemark: post } = data;
   console.log(post);
+  const isSSR = typeof window === "undefined";
+
   return (
-    <Suspense fallback={null}>
-      <Detail post={post} />
-      {/* <Layout>
+    <>
+      {!isSSR && (
+        <React.Suspense fallback={<div />}>
+          <Detail post={post} />
+          {/* <Layout>
         <DetailPageTemplate
           title={post.frontmatter.title}
           content={post.html}
@@ -157,7 +161,9 @@ const DetailPage = ({ data }) => {
           </ScrollControls>
         </Canvas>
       </Layout> */}
-    </Suspense>
+        </React.Suspense>
+      )}
+    </>
   );
 };
 
