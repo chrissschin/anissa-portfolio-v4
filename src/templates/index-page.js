@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby";
-import { getImage } from "gatsby-plugin-image";
-import HomeImage from "../img/home.jpeg";
 import ChemexImage from "../../static/img/chemex.jpg";
-
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 import ServicesButton from "../components/ServicesButton";
 import { motion, useAnimation } from "framer-motion";
 
 // eslint-disable-next-line
-export const IndexPageTemplate = ({
-  image,
-  title,
-  heading,
-  subheading,
-  mainpitch,
-  description,
-  intro,
-}) => {
-  // const [currentDetailLink, setCurentDetailLink] = useState(detailLinks[0])
-  const controls = useAnimation();
+export const IndexPageTemplate = ({ galleryImages }) => {
+  const [featureImage, setFeatureImage] = useState(
+    galleryImages[0].images[0].childImageSharp.gatsbyImageData.images.fallback
+      .src
+  );
+  const [linkNumber, setLinkNumber] = useState("01");
+  const [imgLabel, setImgLabel] = useState(galleryImages[0].pageLinkText);
+  const [shootDate, setShootDate] = useState(galleryImages[0].shootDate);
 
+  const controls = useAnimation();
   useEffect(() => {
     controls.start("image");
   }, [controls]);
@@ -97,6 +92,11 @@ export const IndexPageTemplate = ({
     },
   };
 
+  const galleryLength =
+    galleryImages.length < 10
+      ? `0${galleryImages.length}`
+      : galleryImages.length;
+
   return (
     <div className="home grid">
       <div className="nav-cont" style={{ overflow: "hidden" }}>
@@ -128,11 +128,6 @@ export const IndexPageTemplate = ({
         </motion.div>
       </div>
 
-      {/* links with images that go to detail page */}
-
-      {/* what we'll do is pass the same object for links and img */}
-      {/* set first link as showImgForthisLink to true */}
-      {/* when user hovers on next link, we set that link to true,  */}
       <div className="img-linker-container">
         <motion.div
           initial={{ opacity: 0 }}
@@ -140,12 +135,21 @@ export const IndexPageTemplate = ({
           variants={variants}
         >
           <span className="u-line">Work</span>
-          <Link to="/details/test-test">Working Link</Link>
-          <a href="#">Some Text About Long</a>
-          <a href="#">Steward Lewsih </a>
-          <a href="#">Dundler Foo </a>
-          <a href="#">James Foo </a>
-          <a href="#">Foolette Foo </a>
+
+          {/* IMAGE LINKER  */}
+          {
+            galleryImages.map((i, index) => <IndexPageLink 
+            key={index} 
+            index={index} 
+            linkText={i.pageLinkText} 
+            linkTo={i.pageLink} 
+            shootDate={i.shootDate}
+            setLinkNumber={setLinkNumber}
+            setFeatureImage={setFeatureImage}
+            setImgLabel={setImgLabel}
+            setShootDate={setShootDate}
+            imgLink={i.images[0].childImageSharp.gatsbyImageData.images.fallback.src}/>) /* prettier-ignore */
+          }
         </motion.div>
       </div>
 
@@ -155,33 +159,20 @@ export const IndexPageTemplate = ({
           animate="label"
           variants={variants}
         >
-          <span>03/ 05</span>
+          <span>
+            {linkNumber}/ {galleryLength}
+          </span>
         </motion.div>
       </div>
 
       {/* image based on link */}
-      <div className="home-img-container">
-        <div className="home-img" style={{ overflow: "hidden" }}>
-          <motion.div
-            className="img-info"
-            initial={{ opacity: 0, y: 4 }}
-            animate="label"
-            variants={variants}
-          >
-            <span>Mountain View</span>
-            <span>12/20/20</span>
-          </motion.div>
-          <motion.div
-            style={{ overflow: "hidden" }}
-            initial={{ y: -2, opacity: 0 }}
-            animate={controls}
-            variants={variants}
-            className="img-switch img-responsive"
-          >
-            <img className="img-responsive" alt="test" src={ChemexImage} />
-          </motion.div>
-        </div>
-      </div>
+      <IndexPageMainImage
+        controls={controls}
+        variants={variants}
+        featureImage={featureImage}
+        imgLabel={imgLabel}
+        shootDate={shootDate}
+      />
 
       <div className="home-socials">
         <motion.img
@@ -218,40 +209,100 @@ export const IndexPageTemplate = ({
   );
 };
 
+// the link
+export const IndexPageLink = ({
+  linkText,
+  linkTo,
+  imgLink,
+  index,
+  shootDate,
+  setLinkNumber,
+  setFeatureImage,
+  setShootDate,
+  setImgLabel,
+}) => {
+  const linkEl = useRef(null);
+
+  const handleMouseEnter = (i) => {
+    console.log(linkEl);
+    setLinkNumber(index + 1 < 10 ? `0${index + 1}` : index + 1);
+    setFeatureImage(imgLink);
+    setImgLabel(linkText);
+    setShootDate(shootDate);
+  };
+
+  return (
+    <Link onMouseEnter={handleMouseEnter} ref={linkEl} to={linkTo}>
+      {linkText}
+    </Link>
+  );
+};
+
+// the main image
+export const IndexPageMainImage = ({
+  featureImage,
+  variants,
+  imgLabel,
+  controls,
+  shootDate,
+}) => {
+  return (
+    <div className="home-img-container">
+      <div className="home-img" style={{ overflow: "hidden" }}>
+        <motion.div
+          className="img-info"
+          initial={{ opacity: 0, y: 4 }}
+          animate="label"
+          variants={variants}
+        >
+          <span>{imgLabel}</span>
+          <span>{shootDate}</span>
+        </motion.div>
+        <motion.div
+          style={{ overflow: "hidden" }}
+          initial={{ y: -2, opacity: 0 }}
+          animate={controls}
+          variants={variants}
+          className="img-switch img-responsive"
+        >
+          <img
+            className="img-responsive"
+            alt="test"
+            src={featureImage !== null ? featureImage : ChemexImage}
+          />
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
 IndexPageTemplate.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  title: PropTypes.string,
-  heading: PropTypes.string,
-  subheading: PropTypes.string,
-  mainpitch: PropTypes.object,
-  description: PropTypes.string,
-  intro: PropTypes.shape({
-    blurbs: PropTypes.array,
-  }),
+  galleryImages: PropTypes.any,
 };
 
 const IndexPage = ({ data }) => {
-  const { frontmatter } = data.markdownRemark;
-
+  const detailPages = data.allMarkdownRemark.edges.filter((i) => {
+    return i.node.frontmatter.templateKey === "detail-page";
+  });
+  const galleryImages = detailPages.map((g) => {
+    return {
+      shootDate: g.node.frontmatter.date,
+      pageLink: g.node.fields.slug,
+      pageLinkText: g.node.frontmatter.title,
+      images: g.node.frontmatter.galleryImages,
+    };
+  });
   return (
     <Layout>
-      <IndexPageTemplate
-        image={frontmatter.image}
-        title={frontmatter.title}
-        heading={frontmatter.heading}
-        subheading={frontmatter.subheading}
-        mainpitch={frontmatter.mainpitch}
-        description={frontmatter.description}
-        intro={frontmatter.intro}
-      />
+      <IndexPageTemplate galleryImages={galleryImages} />
     </Layout>
   );
 };
 
 IndexPage.propTypes = {
   data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object,
+    allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.array,
     }),
   }),
 };
@@ -260,32 +311,23 @@ export default IndexPage;
 
 export const pageQuery = graphql`
   query IndexPageTemplate {
-    markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
-      frontmatter {
-        title
-        image {
-          childImageSharp {
-            gatsbyImageData(quality: 100, layout: FULL_WIDTH)
-          }
-        }
-        heading
-        subheading
-        mainpitch {
-          title
-          description
-        }
-        description
-        intro {
-          blurbs {
-            image {
+    allMarkdownRemark {
+      edges {
+        node {
+          id
+          frontmatter {
+            templateKey
+            title
+            date(formatString: "L")
+            galleryImages {
               childImageSharp {
-                gatsbyImageData(width: 240, quality: 64, layout: CONSTRAINED)
+                gatsbyImageData(quality: 100, layout: FULL_WIDTH)
               }
             }
-            text
           }
-          heading
-          description
+          fields {
+            slug
+          }
         }
       }
     }

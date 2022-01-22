@@ -2,67 +2,30 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Layout from "../components/Layout";
-import Content, { HTMLContent } from "../components/Content";
 import HomeImage from "../img/home.jpeg";
-import ManImage from "../img/man.jpg";
 import ChemexImage from "../../static/img/chemex.jpg";
 import BlogImage from "../../static/img/blog-index.jpg";
 import { Link } from "gatsby";
-import {
-  motion,
-  useViewportScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
+import { motion } from "framer-motion";
 
 // eslint-disable-next-line
-export const ServicesPageTemplate = ({ contentComponent, content }) => {
-  const PageContent = contentComponent || Content;
-  const offset = 70;
+export const ServicesPageTemplate = ({}) => {
   const loremIpsum =
     "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC,";
-  const [elementTop, setElementTop] = useState(0);
 
-  const [clientHeight, setClientHeight] = useState(0);
-  const ref = useRef(null);
-  const ref2 = useRef(null);
-  const { scrollY } = useViewportScroll();
+  // const [clientHeight, setClientHeight] = useState(0);
+  // const { scrollY } = useViewportScroll();
 
-  // start animating our element when we've scrolled it into view
-  const initial = elementTop - clientHeight;
-  // end our animation when we've scrolled the offset specified
-  const final = elementTop + offset;
+  // // start animating our element when we've scrolled it into view
+  // const initial = elementTop - clientHeight;
+  // // end our animation when we've scrolled the offset specified
+  // const final = elementTop + offset;
 
-  const yRange = useTransform(scrollY, [initial, final], [20, 400]);
-  const yRange2 = useTransform(scrollY, [initial, final], [20, -300]);
-  const yRange3 = useTransform(scrollY, [initial, final], [40, -100]);
   // apply a spring to ease the result
-  const y = useSpring(yRange, { stiffness: 180, damping: 16 });
-  const y2 = useSpring(yRange2, { stiffness: 150, damping: 16 });
-  const y3 = useSpring(yRange3, { stiffness: 100, damping: 16 });
-
-  // scroll fixed stuff
-  // tweak this
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isFixed, setIsFixed] = useState(true);
+  const [isFixed] = useState(true);
   const homeLink = useRef(null);
-  // const scrollHeight = Math.max(
-  //   document.body.scrollHeight,
-  //   document.documentElement.scrollHeight,
-  //   document.body.offsetHeight,
-  //   document.documentElement.offsetHeight,
-  //   document.body.clientHeight,
-  //   document.documentElement.clientHeight
-  // );
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
 
-    // if (currentScrollY > scrollHeight / 2) {
-    //   setIsFixed(false);
-    // } else {
-    //   setIsFixed(true);
-    // }
-  };
+  const handleScroll = () => {};
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -71,24 +34,6 @@ export const ServicesPageTemplate = ({ contentComponent, content }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // useLayoutEffect(() => {
-  //   const element = ref.current;
-  //   // save our layout measurements in a function in order to trigger
-  //   // it both on mount and on resize
-  //   const onResize = () => {
-  //     // use getBoundingClientRect instead of offsetTop in order to
-  //     // get the offset relative to the viewport
-  //     setElementTop(
-  //       element.getBoundingClientRect().top + window.scrollY ||
-  //         window.pageYOffset
-  //     );
-  //     setClientHeight(window.innerHeight);
-  //   };
-  //   onResize();
-  //   window.addEventListener("resize", onResize);
-  //   return () => window.removeEventListener("resize", onResize);
-  // }, [ref]);
 
   return (
     <motion.div

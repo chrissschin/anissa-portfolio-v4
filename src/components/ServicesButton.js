@@ -5,7 +5,7 @@ const ServicesButton = class extends React.Component {
   render() {
     return (
       <Link to="/services">
-        <button>Servicess</button>
+        <button>Services</button>
       </Link>
     );
   }

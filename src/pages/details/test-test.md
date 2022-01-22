@@ -8,7 +8,7 @@ image2: /img/flavor_wheel.jpg
 tags:
   - yummy
 galleryImages:
-  - /img/blog-index.jpg
+  - /img/chemex.jpg
   - /img/flavor_wheel.jpg
   - /img/coffee-gear.png
 ---
