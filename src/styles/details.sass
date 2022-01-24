@@ -3,25 +3,28 @@ $heading-font-family: "agrandir-reg", Helvetica, sans-serif
 
 .detail-page
   position: relative
-  padding: 40px 24px 8px
+  padding: 16px 24px 8px
   max-width: 1584px
   margin: 0 auto
   z-index: 50
   height: 35vh
   max-height: 35vh
-  h2
-    font-family: $heading-font-family
-    margin-bottom: 24px
-  p
-    max-width: 500px
-    text-align: justify
-  .detail-row
+  .detail-top-nav
     display: flex
     justify-content: space-between
     .detail-links
-      align-self: end
       button
         margin-right: 4.0vw
+  h2
+    font-family: $heading-font-family
+    margin-bottom: 16px
+  p
+    max-width: 500px
+    text-align: justify
+    margin-bottom: 4px
+  .detail-row
+    display: flex
+    justify-content: space-between
 
   button
     cursor: pointer
@@ -51,3 +54,18 @@ $heading-font-family: "agrandir-reg", Helvetica, sans-serif
   position: absolute
   bottom: 0
   padding-bottom: 16px
+
+@media screen and (max-width: 720px)
+  .detail-page
+    padding: 0
+    height: 35vh
+    max-height: 35vh
+    p, strong
+      font-size: 12px !important
+    h2
+      margin-top: 4px
+      margin-bottom: 8px
+      font-size: 18px
+    .detail-row
+      display: block
+      padding: 8px 16px

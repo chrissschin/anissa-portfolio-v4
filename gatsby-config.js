@@ -28,6 +28,7 @@ module.exports = {
         name: "pages",
       },
     },
+    "gatsby-plugin-breakpoints",
     `gatsby-plugin-image`,
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",

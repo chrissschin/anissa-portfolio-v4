@@ -1,20 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { graphql, Link } from "gatsby";
-import ChemexImage from "../../static/img/chemex.jpg";
+import { graphql } from "gatsby";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 import ServicesButton from "../components/ServicesButton";
 import { motion, useAnimation } from "framer-motion";
+import { useBreakpoint } from "gatsby-plugin-breakpoints";
+import IndexPageMobile from "../components/IndexPageMobile";
+import IndexPageLink from "../components/IndexPageLink";
+import IndexPageMainImage from "../components/IndexPageMainImage";
+import SocialsComponent from "../components/SocialsComponent";
 
 // eslint-disable-next-line
-export const IndexPageTemplate = ({ galleryImages }) => {
+export const IndexPageTemplate = ({ galleryImages, aboutDescription }) => {
   const [featureImage, setFeatureImage] = useState(
     galleryImages[0].images[0].childImageSharp.gatsbyImageData.images.fallback
       .src
   );
   const [linkNumber, setLinkNumber] = useState("01");
-  const [imgLabel, setImgLabel] = useState(galleryImages[0].pageLinkText);
+  const [imgLabel, setImgLabel] = useState(galleryImages[0].imgLabel);
   const [shootDate, setShootDate] = useState(galleryImages[0].shootDate);
 
   const controls = useAnimation();
@@ -121,10 +125,7 @@ export const IndexPageTemplate = ({ galleryImages }) => {
           animate="textBoxShow"
           variants={variants}
         >
-          <p className="mb-0">
-            Lorem ipsum text to go here random. The random text goes here
-            description. The green juice mixed with apples. Brown pots.
-          </p>
+          <p className="mb-0">{aboutDescription}</p>
         </motion.div>
       </div>
 
@@ -142,7 +143,8 @@ export const IndexPageTemplate = ({ galleryImages }) => {
             key={index} 
             index={index} 
             linkText={i.pageLinkText} 
-            linkTo={i.pageLink} 
+            linkTo={i.pageLink}
+            imgLabel={i.imgLabel}
             shootDate={i.shootDate}
             setLinkNumber={setLinkNumber}
             setFeatureImage={setFeatureImage}
@@ -174,13 +176,7 @@ export const IndexPageTemplate = ({ galleryImages }) => {
         shootDate={shootDate}
       />
 
-      <div className="home-socials">
-        <motion.img
-          alt="test"
-          src="https://via.placeholder.com/20"
-        ></motion.img>
-        <img alt="test" src="https://via.placeholder.com/20"></img>
-      </div>
+      <SocialsComponent />
 
       <motion.div
         className="dash-top-right"
@@ -209,78 +205,13 @@ export const IndexPageTemplate = ({ galleryImages }) => {
   );
 };
 
-// the link
-export const IndexPageLink = ({
-  linkText,
-  linkTo,
-  imgLink,
-  index,
-  shootDate,
-  setLinkNumber,
-  setFeatureImage,
-  setShootDate,
-  setImgLabel,
-}) => {
-  const linkEl = useRef(null);
-
-  const handleMouseEnter = (i) => {
-    console.log(linkEl);
-    setLinkNumber(index + 1 < 10 ? `0${index + 1}` : index + 1);
-    setFeatureImage(imgLink);
-    setImgLabel(linkText);
-    setShootDate(shootDate);
-  };
-
-  return (
-    <Link onMouseEnter={handleMouseEnter} ref={linkEl} to={linkTo}>
-      {linkText}
-    </Link>
-  );
-};
-
-// the main image
-export const IndexPageMainImage = ({
-  featureImage,
-  variants,
-  imgLabel,
-  controls,
-  shootDate,
-}) => {
-  return (
-    <div className="home-img-container">
-      <div className="home-img" style={{ overflow: "hidden" }}>
-        <motion.div
-          className="img-info"
-          initial={{ opacity: 0, y: 4 }}
-          animate="label"
-          variants={variants}
-        >
-          <span>{imgLabel}</span>
-          <span>{shootDate}</span>
-        </motion.div>
-        <motion.div
-          style={{ overflow: "hidden" }}
-          initial={{ y: -2, opacity: 0 }}
-          animate={controls}
-          variants={variants}
-          className="img-switch img-responsive"
-        >
-          <img
-            className="img-responsive"
-            alt="test"
-            src={featureImage !== null ? featureImage : ChemexImage}
-          />
-        </motion.div>
-      </div>
-    </div>
-  );
-};
-
 IndexPageTemplate.propTypes = {
   galleryImages: PropTypes.any,
 };
 
 const IndexPage = ({ data }) => {
+  const breakpoints = useBreakpoint();
+
   const detailPages = data.allMarkdownRemark.edges.filter((i) => {
     return i.node.frontmatter.templateKey === "detail-page";
   });
@@ -289,12 +220,30 @@ const IndexPage = ({ data }) => {
       shootDate: g.node.frontmatter.date,
       pageLink: g.node.fields.slug,
       pageLinkText: g.node.frontmatter.title,
+      imgLabel: g.node.frontmatter.homeImageLabel,
       images: g.node.frontmatter.galleryImages,
     };
   });
+
+  const aboutDescription = data.allMarkdownRemark.edges.filter((i) => {
+    return i.node.frontmatter.templateKey === "index-page";
+  })[0].node.frontmatter.description;
+
+  console.log(galleryImages);
+
   return (
     <Layout>
-      <IndexPageTemplate galleryImages={galleryImages} />
+      {breakpoints.sm ? (
+        <IndexPageMobile
+          galleryImages={galleryImages}
+          aboutDescription={aboutDescription}
+        />
+      ) : (
+        <IndexPageTemplate
+          galleryImages={galleryImages}
+          aboutDescription={aboutDescription}
+        />
+      )}
     </Layout>
   );
 };
@@ -318,6 +267,8 @@ export const pageQuery = graphql`
           frontmatter {
             templateKey
             title
+            homeImageLabel
+            description
             date(formatString: "L")
             galleryImages {
               childImageSharp {

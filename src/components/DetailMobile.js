@@ -6,8 +6,8 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Image, ScrollControls, Scroll, useScroll } from "@react-three/drei";
 import { useSnapshot } from "valtio";
 import { state, damp } from "./Util";
+import Navbar from "../components/Navbar";
 
-import { Link } from "gatsby"; // to query for image data
 import Layout from "../components/Layout";
 import ServicesButton from "../components/ServicesButton";
 
@@ -15,15 +15,15 @@ import ServicesButton from "../components/ServicesButton";
 const DetailPageLayout = ({ content, title }) => {
   return (
     <div className="detail-page">
-      <div className="detail-top-nav">
-        <h2>{title}</h2>
-        <div className="detail-links">
+      <div className="nav-container--mobile">
+        <Navbar />
+        <div className="btn-services">
           <ServicesButton />
-          <Link to="/">HOME</Link>
         </div>
       </div>
-      <div className="dash-rght"></div>
       <div className="detail-row">
+        <h2>{title}</h2>
+
         <div
           className="detail-info"
           dangerouslySetInnerHTML={{ __html: content }}
@@ -99,7 +99,7 @@ const Item = ({ index, position, scale, c = new THREE.Color(), ...props }) => {
   );
 };
 
-const Items = ({ w = 1.25, gap = 0.25, galleryImages }) => {
+const Items = ({ w = 0.8, gap = 0.25, galleryImages }) => {
   const galleryLinks = galleryImages.map((i) => {
     return i.childImageSharp.gatsbyImageData.images.fallback.src;
   });
@@ -116,7 +116,7 @@ const Items = ({ w = 1.25, gap = 0.25, galleryImages }) => {
     >
       <Scroll>
         {
-          galleryLinks.map((url, i) => <Item key={i} index={i} position={[(i * xW) - (xW * 4), 0, 1.2]} scale={[w, 4, 1]} url={url} />) /* prettier-ignore */
+          galleryLinks.map((url, i) => <Item key={i} index={i} position={[(i * xW) , 0, 1.2]} scale={[w, 4, 1]} url={url} />) /* prettier-ignore */
         }
       </Scroll>
     </ScrollControls>
@@ -124,7 +124,7 @@ const Items = ({ w = 1.25, gap = 0.25, galleryImages }) => {
 };
 
 // what renders to the page
-const Detail = class extends React.Component {
+const DetailMobile = class extends React.Component {
   render() {
     const { post } = this.props;
     return (
@@ -135,7 +135,7 @@ const Detail = class extends React.Component {
           galleryImages={post.frontmatter.galleryImages}
         />
         <Canvas
-          style={{ height: "65vh" }}
+          style={{ height: "60vh", marginTop: "8px" }}
           gl={{ antialias: false }}
           dpr={[1, 1.5]}
           onPointerMissed={() => (state.clicked = null)}
@@ -147,4 +147,4 @@ const Detail = class extends React.Component {
   }
 };
 
-export default Detail;
+export default DetailMobile;

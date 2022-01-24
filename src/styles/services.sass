@@ -79,10 +79,7 @@
 .socials
   position: fixed
   right: 4vw
-  bottom: 5px
-  img
-    display: block
-    margin-bottom: 16px
+  bottom: 16px
 
 .dash-lft
   grid-area: 1/1/auto/auto
@@ -102,3 +99,52 @@
   align-self: flex-end
   margin-bottom: -120px
   opacity: .25
+
+@media screen and ( max-width:720px )
+  .services-page
+    padding: 16px
+    li
+      font-size: clamp(12px, 1.4vw, 14px)
+      line-height: clamp(16px, 2.2vw, 22px)
+    .socials
+      right: 8px
+      bottom: 0
+    .home-link
+      > a
+        top: 39px
+        font-size: 12px
+    h1
+      font-size: 48px
+      margin-bottom: 24px
+    .services-row-a, .services-row-b
+      margin-bottom: 40px
+      .col-txt
+        padding: 8px
+        grid-area: 2/1/auto/span 15
+      .col-img
+        grid-area: auto/1/auto/span 15
+    .dash-rght
+      border-right: 0
+      height: 0
+    .dash-lft
+      border-left: 0
+    .services-footer
+      display: block
+      .services-footer-content
+        grid-area: 0
+        padding: 8px
+        h2
+          font-size: 24px
+      .footer-cta
+        display: block
+        margin-top: 32px
+        .cta-txt
+          margin-right: 0
+          margin-bottom: 16px
+          font-size: 18px
+        button
+          display: block
+          margin-top: 8px
+          min-width: 180px
+          padding: 18px
+          font-size: 18px

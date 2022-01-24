@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { Link } from "gatsby";
 
 const Navbar = class extends React.Component {
   constructor(props) {
@@ -33,7 +33,9 @@ const Navbar = class extends React.Component {
   render() {
     return (
       <nav>
-        <span className="logo">ANISSA SILVAS</span>
+        <Link className="logo" to="/">
+          ANISSA SILVAS
+        </Link>
       </nav>
     );
   }

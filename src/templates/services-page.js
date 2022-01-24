@@ -2,24 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Layout from "../components/Layout";
-import HomeImage from "../img/home.jpeg";
-import ChemexImage from "../../static/img/chemex.jpg";
-import BlogImage from "../../static/img/blog-index.jpg";
+import Leni2 from "../../static/img/leni2.png";
+import Leni from "../../static/img/leni.png";
+import Leni3 from "../../static/img/leni3.png";
 import { Link } from "gatsby";
 import { motion } from "framer-motion";
+import SocialsComponent from "../components/SocialsComponent";
 
 // eslint-disable-next-line
 export const ServicesPageTemplate = ({}) => {
   const loremIpsum =
     "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC,";
-
-  // const [clientHeight, setClientHeight] = useState(0);
-  // const { scrollY } = useViewportScroll();
-
-  // // start animating our element when we've scrolled it into view
-  // const initial = elementTop - clientHeight;
-  // // end our animation when we've scrolled the offset specified
-  // const final = elementTop + offset;
 
   // apply a spring to ease the result
   const [isFixed] = useState(true);
@@ -56,7 +49,7 @@ export const ServicesPageTemplate = ({}) => {
         }}
         transition={{
           ease: [0.87, -0.05, 0.43, 1],
-          default: { duration: 0.6 },
+          default: { duration: 0.3 },
         }}
       >
         <h1>Services</h1>
@@ -65,10 +58,20 @@ export const ServicesPageTemplate = ({}) => {
         <Link ref={homeLink} className={isFixed ? "fixed" : "absolute"} to="/">
           HOME
         </Link>
-        <div className="socials">
-          <img alt="test" src="https://via.placeholder.com/20"></img>
-          <img alt="test" src="https://via.placeholder.com/20"></img>
-        </div>
+        <motion.div
+          className="socials"
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            y: -2,
+          }}
+          transition={{
+            ease: [0.87, -0.05, 0.43, 1],
+            default: { duration: 0.6 },
+          }}
+        >
+          <SocialsComponent />
+        </motion.div>
       </div>
       <section className="services-container">
         {/* one section */}
@@ -77,16 +80,13 @@ export const ServicesPageTemplate = ({}) => {
             <p>{loremIpsum}</p>
             <ul>
               <li>Service item 1</li>
-              <li>Service item 1</li>
-
-              <li>Service item 1</li>
-              <li>Service item 1</li>
-              <li>Service item 1</li>
+              <li>Service item 2</li>
+              <li>Service item 3</li>
             </ul>
           </motion.div>
 
           <motion.div className="col-img">
-            <img className="img-responsive" alt="test" src={HomeImage} />
+            <img className="img-responsive" alt="test" src={Leni3} />
           </motion.div>
 
           <div className="dash-lft"></div>
@@ -95,7 +95,7 @@ export const ServicesPageTemplate = ({}) => {
         {/* one section */}
         <div className="services-row-b">
           <motion.div className="col-img">
-            <img className="img-responsive" alt="test" src={ChemexImage} />
+            <img className="img-responsive" alt="test" src={Leni} />
           </motion.div>
           <motion.div className="col-txt">
             <p>{loremIpsum}</p>
@@ -109,14 +109,13 @@ export const ServicesPageTemplate = ({}) => {
             <ul>
               <li>Service item 1</li>
               <li>Service item 1</li>
-
               <li>Service item 1</li>
               <li>Service item 1</li>
               <li>Service item 1</li>
             </ul>
           </motion.div>
           <motion.div className="col-img">
-            <img className="img-responsive" alt="test" src={BlogImage} />
+            <img className="img-responsive" alt="test" src={Leni2} />
           </motion.div>
         </div>
 

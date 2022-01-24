@@ -3,6 +3,7 @@
 
 @import "../styles/services.sass"
 @import "../styles/details.sass"
+@import "../styles/indexMobile.sass"
 
 *, *::before, *::after
   padding: 0
@@ -30,7 +31,7 @@ h1
   line-height: clamp(72px, 14.4vw, 360px)
   font-family: $heading-font-family
   margin: 0
-  letter-spacing: 8px
+  letter-spacing: 2px
 
 h2
   font-size: clamp(36px, 3.6vw, 42px)
@@ -140,12 +141,13 @@ span
 .home-socials
   grid-area: 7/14/7/-3
   display: flex
-  align-items: flex-end
+  align-items: center
   flex-direction: column
   justify-content: end
   img
     margin: 4px
     margin-right: 8px
+    width: 15px
 
 .dash-top-right
   grid-area: 1/14/ span 1 / auto
@@ -178,6 +180,7 @@ span
   font-family: $logo-font-family
   font-size: 24px
   line-height: 24px
+  text-decoration: none
 
 .container
   max-width: 3180px
@@ -231,3 +234,21 @@ canvas
   height: 100vh
   canvas
     height: 100vh
+
+@media (max-width: 720px)
+  nav
+    align-self: center
+    .logo
+      font-size: 18px
+  .nav-container--mobile
+    display: flex
+    justify-content: space-between
+    margin: 16px
+    margin-bottom: 8px
+  .about-text--mobile
+    padding: 16px
+  .home-socials
+    position: fixed
+    bottom: 16px
+    right: 16px
+    display: block

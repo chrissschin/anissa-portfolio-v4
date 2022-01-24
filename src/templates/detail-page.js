@@ -1,16 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { graphql } from "gatsby"; // to query for image data
+import { useBreakpoint } from "gatsby-plugin-breakpoints";
 const Detail = React.lazy(() => import("../components/Detail"));
+const DetailMobile = React.lazy(() => import("../components/DetailMobile"));
 
 const DetailPage = ({ data }) => {
+  const breakpoints = useBreakpoint();
   const { markdownRemark: post } = data;
   const isSSR = typeof window === "undefined";
   return (
     <>
       {!isSSR && (
         <React.Suspense fallback={<div />}>
-          <Detail post={post} />
+          {breakpoints.sm ? (
+            <DetailMobile post={post} />
+          ) : (
+            <Detail post={post} />
+          )}
         </React.Suspense>
       )}
     </>
@@ -24,10 +30,10 @@ export const detailPageQuery = graphql`
     markdownRemark(id: { eq: $id }) {
       id
       html
+
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
-        description
         galleryImages {
           childImageSharp {
             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
