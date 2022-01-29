@@ -37,6 +37,16 @@ collections:
               widget: "hidden",
               default: "services-page",
             }
+      - file: "src/pages/documentation-helper/index.md"
+        label: "Documentation Page"
+        name: "documentation"
+        fields:
+          - {
+            label: "Template Key",
+            name: "templateKey",
+            widget: "hidden",
+            default: "documentation-page"
+          }            
   - name: "details"
     label: "Details"
     folder: "src/pages/details"
