@@ -37,6 +37,40 @@ collections:
               widget: "hidden",
               default: "services-page",
             }
+          - {
+              label: "First row", name: "firstRow", widget: "object",
+                fields: [
+                  {label: "Left Column Text", name: "leftColText", widget: "markdown", required: false},
+                  {label: "Right Column Text", name: "rightColImage", widget: "image", required: false},
+                ]
+            }
+          - {
+              label: "Second row", name: "secondRow", widget: "object",
+                fields: [
+                  {label: "Left Column Image", name: "leftColImage", widget: "image", required: false},
+                  {label: "Right Column Text", name: "rightColText", widget: "markdown", required: false},
+
+                ]
+            }
+          - {
+              label: "Third row", name: "thirdRow", widget: "object",
+                fields: [
+                  {label: "Left Column Text", name: "leftColText", widget: "markdown", required: false},
+                  {label: "Right Column Image", name: "rightColImage", widget: "image", required: false},
+                ]
+            }
+          - {
+              label: "Call To Action Text",
+              name: "ctaText",
+              widget: "string",
+              required: false
+            }
+          - {
+              label: "Call To Action Button Text",
+              name: "bottomCtaButtonText",
+              widget: "string",
+              required: false
+            }                                          
       - file: "src/pages/documentation-helper/index.md"
         label: "Documentation Page"
         name: "documentation"

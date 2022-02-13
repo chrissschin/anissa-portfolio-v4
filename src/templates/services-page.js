@@ -8,6 +8,8 @@ import Leni3 from "../../static/img/leni3.png";
 import { Link } from "gatsby";
 import { motion } from "framer-motion";
 import SocialsComponent from "../components/SocialsComponent";
+import "../css/locomotive-scroll.css";
+import { LocomotiveScrollProvider } from "react-locomotive-scroll";
 
 // eslint-disable-next-line
 export const ServicesPageTemplate = ({}) => {
@@ -146,13 +148,26 @@ ServicesPageTemplate.propTypes = {
 
 const ServicesPage = ({ data }) => {
   const { markdownRemark: post } = data;
-
+  const containerRef = useRef(null);
   return (
     <Layout>
-      <ServicesPageTemplate
-        title={post.frontmatter.title}
-        content={post.content}
-      />
+      <LocomotiveScrollProvider
+        options={{
+          smooth: true,
+          lerp: 0.15,
+          multiplier: 0.9,
+          reloadOnContextChange: true,
+        }}
+        containerRef={containerRef}
+      >
+        <main data-scroll-container ref={containerRef} id="stick">
+          <ServicesPageTemplate
+            data-scroll-section
+            title={post.frontmatter.title}
+            content={post.content}
+          />
+        </main>
+      </LocomotiveScrollProvider>
     </Layout>
   );
 };
@@ -162,6 +177,14 @@ ServicesPage.propTypes = {
 };
 
 export default ServicesPage;
+
+export const servicesPageQuery = graphql`
+query ServicesPage {
+  markdownRemark(frontmatter: { templateKey: { eq: "services-page" } }) {
+
+  }
+}
+`;
 
 export const servicesPageQuery = graphql`
   query ServicesPage($id: String!) {

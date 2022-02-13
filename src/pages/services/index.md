@@ -1,7 +1,18 @@
 ---
 templateKey: services-page
+firstRow:
+  leftColText: Hello sample text
+  rightColImage: /img/leni10.png
+secondRow:
+  leftColImage: /img/leni6.png
+  rightColText: Right column text sample
+thirdRow:
+  leftColText: Another row text
+  rightColImage: /img/leni7.png
+bottomCtaButtonText: Contact
 path: /services
 title: Services
+ctaText: '"Still have Questions"'
 ---
 
 ### Shade-grown coffee
