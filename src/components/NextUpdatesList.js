@@ -13,7 +13,7 @@ const NextUpdatesList = class extends React.Component {
           <label className="documentation--label">Add Favicon</label>
         </li>
         <li>
-          <input type="checkbox" disabled />
+          <input type="checkbox" checked />
           <label className="documentation--label">
             Enable content editing for Services Page
           </label>

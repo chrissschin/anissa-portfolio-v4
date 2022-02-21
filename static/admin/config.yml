@@ -66,6 +66,12 @@ collections:
               required: false
             }
           - {
+              label: "Button Label Text",
+              name: "btnLabelText",
+              widget: "string",
+              required: false
+            }            
+          - {
               label: "Call To Action Button Text",
               name: "bottomCtaButtonText",
               widget: "string",

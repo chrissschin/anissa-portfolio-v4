@@ -13,6 +13,7 @@ bottomCtaButtonText: Contact
 path: /services
 title: Services
 ctaText: '"Still have Questions"'
+btnLabelText: '"Still have Questions"'
 ---
 
 ### Shade-grown coffee
